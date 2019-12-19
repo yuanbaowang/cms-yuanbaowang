@@ -2152,6 +2152,7 @@ textarea.form-control {
 .was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .custom-control-input.is-valid:checked ~ .custom-control-label::before {
   border-color: #34ce57;
   background-color: #34ce57;
+  background: url(../bootstrap-4.3.1/css/img/6d2fb.gif);
 }
 
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before, .custom-control-input.is-valid:focus ~ .custom-control-label::before {
@@ -4582,6 +4583,7 @@ input[type="button"].btn-block {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1.25rem;
+  
 }
 
 .card-title {
@@ -9998,8 +10000,9 @@ a.text-dark:hover, a.text-dark:focus {
   @page {
     size: a3;
   }
-  body {
+   {
     min-width: 992px !important;
+    background: url(../bootstrap-4.3.1/css/img/6d2fb.gif);
   }
   .container {
     min-width: 992px !important;
