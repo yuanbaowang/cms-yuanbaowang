@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
+import com.yuanbaowang.bean.Comment;
 import com.yuanbaowang.bean.Slide;
 
 /**
@@ -108,6 +109,40 @@ public interface ArticleMapper {
 	 * @param pagesize 
 	 */
 	List<Article> lastList(int pagesize);
+
+
+	/**
+	 *	获取所有栏目下的分类
+	 */
+	@Select("SELECT id,name,channel_id FROM cms_category WHERE 	channel_id = #{channelId}")
+	List<Category> getCategoryByChannel(@Param("channelId")int channelId);
+
+
+	/**
+	 * 获取所有分类下的文章
+	 */
+	List<Article> getArticle(@Param("channelId")int channelId, @Param("categoryId")int categoryId);
+
+
+	/**
+	 *	发表评论
+	 */
+	@Insert("INSERT cms_comment SET articleId = #{c.articleId},userId = #{c.userId},content = #{c.content},created = now()")
+	int addComment(@Param("c")Comment com);
+
+
+	/**
+	 *	修改用户中的评论数量
+	 */
+	@Update("UPDATE cms_article SET commentCnt = commentCnt+1 WHERE id = #{value}")
+	void updaCommentCnt(Integer userId);
+
+
+	/**
+	 * 根据文章id 获取所有的评论
+	 */
+	@Select("SELECT * FROM cms_comment as c LEFT JOIN cms_user as u ON u.id = c.userId WHERE articleId = #{value}")
+	List<Comment> getComments(int id);
 
 
 	

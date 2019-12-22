@@ -314,5 +314,13 @@ public class UserController {
 		return i > 0 ;
 	}
 	
+	/**
+	 * 	注销
+	 */
+	@RequestMapping("loginOut")
+	public String loginOut(HttpServletRequest request) {
+		request.getSession().removeAttribute(CmsContant.USER_KEY);
+		return "index";
+	}
 	
 }

@@ -13,7 +13,7 @@
     <th>发布时间</th>
     <th>作者</th>
     <th>状态</th>
-    <th>是否热门</th>
+    <th>热门</th>
     <th>操作</th>
   </tr>
 </thead>
@@ -197,5 +197,7 @@
 	function refreshPage(){
 		$("#workcontent").load("/admin/article?status=0&pageNum="+'${list.pageNum}');
 	}
+	
+	
 	
 </script>

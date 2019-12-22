@@ -12,7 +12,7 @@ package com.yuanbaowang.common;
 public class CmsContant {
 	
 	//
-	public static final String USER_KEY = "";
+	public static final String USER_KEY = "USER_KEY";
 	
 	//普通用户
 	public static final int USER_ROLE_GENERAL = 0;
@@ -25,5 +25,8 @@ public class CmsContant {
 	
 	//删除状态
 	public static final int ARTICLE_STATUS_DEL = 1;
+
+	//没有登录状态
+	public static final int NOT_LOGIN = 0;
 	
 }

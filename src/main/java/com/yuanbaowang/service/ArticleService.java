@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
+import com.yuanbaowang.bean.Comment;
 import com.yuanbaowang.bean.Slide;
 
 /**
@@ -96,5 +97,27 @@ public interface ArticleService {
 	 *	获取所有轮播图
 	 */
 	List<Slide> slideList();
+
+	/**
+	 *	根据channelId获取当前栏目下所有的分类
+	 */
+	List<Category> getCategoryByChannel(int channelId);
+
+	/**
+	 * 获取当前栏目下的文章
+	 */
+	PageInfo<Article> getArticle(int channelId, int categoryId, int pageNum);
+
+	/**
+	 *	发表评论
+	 */
+	int addComment(Comment com);
+
+	/**
+	 *	文章id 获取所有评论
+	 */
+	PageInfo<Comment> getComments(int id, int pageNum);
+
+
 
 }

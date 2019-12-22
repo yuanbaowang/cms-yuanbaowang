@@ -41,7 +41,7 @@ public class AdminController {
 	 * 	管理员列表
 	 */
 	@RequestMapping("article")
-	public String article(HttpServletRequest request,int status,@RequestParam(defaultValue = "1")int pageNum) {
+	public String article(HttpServletRequest request,@RequestParam(defaultValue = "0")int status,@RequestParam(defaultValue = "1")int pageNum) {
 		PageInfo<Article> list = service.list(status,pageNum);
 		request.getSession().setAttribute("list", list);
 		request.getSession().setAttribute("status", status);

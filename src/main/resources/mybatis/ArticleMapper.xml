@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="listByUser" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,created,status,hot
+		SELECT id,title,channel_id,category_id,created,status,hot,picture
 		From cms_article
 		Where user_id = #{id}
 		AND deleted = 0
@@ -41,16 +41,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="list" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created,status,hot
+		SELECT id,title,channel_id,category_id,user_id,created,status,hot,picture
 		From cms_article
-		WHERE status = 1
+		WHERE status = 0
 		AND deleted = 0
 		ORDER BY id DESC
 	</select>
 	
 		<!-- 获取最新文章 -->
 	<select id="lastList" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created
+		SELECT id,title,channel_id,category_id,user_id,created,picture
 		From cms_article
 		WHERE status = 1
 		AND deleted = 0
@@ -61,9 +61,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 获取热门文章 -->
 	<select id="hotList" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created
+		SELECT id,title,channel_id,category_id,user_id,created,picture
 		From cms_article
 		WHERE status = 1
+		AND deleted = 0
+		AND hot = 1
+		ORDER BY id DESC
+	</select>
+		
+		
+	<!-- 获取栏目下所有的 -->
+	<select id="getArticle" resultMap="articleMapper">
+		SELECT id,title,channel_id,category_id,user_id,created,picture
+		From cms_article
+		WHERE status = 1
+		AND channel_id = #{channelId}
+		<if test="categoryId != 0">
+		AND category_id = #{categoryId}
+		</if>
 		AND deleted = 0
 		AND hot = 1
 		ORDER BY id DESC

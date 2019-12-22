@@ -121,53 +121,6 @@
 			<a class = "nav-link" href = "#">联系我们</a>
 </nav>
 
-
-
- <!--navbar-expand-lg指定响应式行为， navbar-light bg-light定义导航栏样式 -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        执行导航栏的显示商标信息
-        <a class="navbar-brand" href="#">NavBar</a>
-        指定导航栏的响应式行为
-        `data-toggle`指以什么事件触发，`data-target`指触发事件的目标标签。一起使用时表示`data-target`所指的元素以`data-toggle`指定的形式显示。
-        `aria-*`的一系列属性都是为了应用在辅助设备上使用。
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            指定按钮的显示图标
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        导航栏内容，collapse表示隐藏内容
-        <div class="navbar-collapse collapse " id="navbarNav">
-            <ul class="navbar-nav">
-                每一个导航项目，active表示显示当前导航链接
-                <li class="nav-item active">
-                    sr-only表示除屏幕阅读器外，其他设备隐藏该元素
-                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    disabled类指定该导航无法操作
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                指定导航项目为下拉列表形式
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    下拉列表及其项目
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another Action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
 </body>
 <script type="text/javascript">
 	/* 初始化副文本编辑器 */

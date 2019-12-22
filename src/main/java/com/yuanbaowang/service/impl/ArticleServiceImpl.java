@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
+import com.yuanbaowang.bean.Comment;
 import com.yuanbaowang.bean.Slide;
 import com.yuanbaowang.common.CmsContant;
 import com.yuanbaowang.dao.ArticleMapper;
@@ -160,6 +161,43 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Slide> slideList() {
 		return slidMapper.slideList();
+	}
+
+	/**
+	 * 	获取档当前栏目下的所有分类
+	 */
+	@Override
+	public List<Category> getCategoryByChannel(int channelId) {
+		return mapper.getCategoryByChannel(channelId);
+	}
+
+	/**
+	 * 	获取当前分类下的所有文章
+	 */
+	@Override
+	public PageInfo<Article> getArticle(int channelId, int categoryId, int pageNum) {
+		PageHelper.startPage(pageNum, CmsContant.PAGESIZE);
+		return new PageInfo<Article>(mapper.getArticle(channelId,categoryId));
+	}
+
+	/**
+	 * 	发表评论
+	 */
+	@Override
+	public int addComment(Comment com) {
+		
+		int i =  mapper.addComment(com);
+		if( i > 0 ) {
+			mapper.updaCommentCnt(com.getArticleId());
+		}
+		return i;
+	}
+
+	@Override
+	public PageInfo<Comment> getComments(int id, int pageNum) {
+		PageHelper.startPage(pageNum, CmsContant.PAGESIZE);
+		
+		return new PageInfo<Comment>(mapper.getComments(id));
 	}
 	
 }
