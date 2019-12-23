@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+状态查询：	<select id = "sta">
+			<option value = "0">待审核</option>
+			<option value = "1">审核通过</option>
+			<option value = "2">拒绝</option>
+		</select>
+		<button onclick = "sub()">查询</button>
+
 <table class="table">
 <thead>
 <tr>
@@ -14,6 +22,7 @@
     <th>作者</th>
     <th>状态</th>
     <th>热门</th>
+    <th>投诉数量</th>
     <th>操作</th>
   </tr>
 </thead>
@@ -35,6 +44,7 @@
 	    	</c:choose>
 	    </td>
 	    <td>${article.hot == 1?"热门":"非热门"}</td>
+	    <td>${article.complainCnt}</td>
 	    <td>
 	    	<input type="button" class = "btn btn-danger" value = "删除" onclick ="del(${article.id })">
 	    	<input type="button" class = "btn btn-warning" value = "审核" onclick ="check(${article.id })">
@@ -135,10 +145,12 @@
 			data:{id:id},
 			dataType:'json',
 			success:function(msg){
-				//alert(JSON.stringify(msg));
+				alert(JSON.stringify(msg));
 				if(msg.code == 1){
+					
 					$("#divTitle").html(msg.date.title);
 					$("#divOption").html("栏目："+'msg.date.channel.name'+"   分类："+'msg.date.category.name'+"   作者："+'msg.date.user.username');
+					
 					$("#divContent").html(msg.date.content);
 					$('#articleContent').modal('show');
 					//把文章的id 保存到全局变量中
@@ -198,6 +210,11 @@
 		$("#workcontent").load("/admin/article?status=0&pageNum="+'${list.pageNum}');
 	}
 	
+	function sub(){
+		var status = $("#sta").val();
+		$("#workcontent").load("/admin/article?status="+status);
+		
+	}
 	
 	
 </script>

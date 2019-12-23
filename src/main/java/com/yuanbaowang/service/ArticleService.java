@@ -5,6 +5,8 @@ package com.yuanbaowang.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.github.pagehelper.PageInfo;
@@ -12,6 +14,7 @@ import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
 import com.yuanbaowang.bean.Comment;
+import com.yuanbaowang.bean.Complain;
 import com.yuanbaowang.bean.Slide;
 
 /**
@@ -117,6 +120,11 @@ public interface ArticleService {
 	 *	文章id 获取所有评论
 	 */
 	PageInfo<Comment> getComments(int id, int pageNum);
+
+	/**
+	 *	添加投诉
+	 */
+	int addComplain(@Valid Complain complain);
 
 
 

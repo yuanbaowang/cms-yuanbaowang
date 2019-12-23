@@ -4,18 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>文章管理</title>
 <link rel = "stylesheet" href = "/bootstrap-4.3.1/css/bootstrap.css">
 <script type="text/javascript" src = "/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src = "/js/jquery.validate.js"></script>
+<!-- <script type="text/javascript" src = "/js/jquery.validate.js"></script>  -->
 <script type="text/javascript" src = "/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src= "/bootstrap-4.3.1/js/bootstrap.js"></script>
-<script type="text/javascript" src = "/js/localization/messages_zh.js" ></script>
+
+<!-- <script type="text/javascript" src = "/js/localization/messages_zh.js" ></script>
 <link rel="stylesheet" href="/resource/kindeditor/themes/default/default.css"/>
 <link rel="stylesheet" href="/resource/kindeditor/plugins/code/prettify.css"/>
 <script charset="utf-8" src="/resource/kindeditor/plugins/code/prettify.js"></script>
 <script charset="utf-8" src="/resource/kindeditor/kindeditor-all.js"></script>
-<script charset="utf-8" src="/resource/kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="/resource/kindeditor/lang/zh-CN.js"></script> -->
 
 <style type="text/css">
 	/* 背景颜色 */
@@ -53,7 +54,7 @@
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
+         <a class="dropdown-item" href="/user/loginOut">注销</a>
           <a class="dropdown-item" href="#">Another action</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
@@ -67,7 +68,7 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <!-- 设置头像 个人信息 等导航格 -->
+<!--     设置头像 个人信息 等导航格 -->
     <div>
     	<ul class="navbar-nav mr-auto  myselected">
     		<li class="nav-link" style="margin-right: 20px"><img width="40" height="40" src="/bootstrap-4.3.1/css/img/6d2fb.gif"></li>
@@ -76,7 +77,7 @@
                       	  个人中心
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="/user/loginOut">注销</a>
                         <a class="dropdown-item" href="#">Another Action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -86,11 +87,15 @@
   </div>
 </nav>
 
+
 <!-- 中间布局 -->
 <div class = "container row" style="height: 800px">
 	<!-- 最左侧导航栏 -->
 	<div class = "col-md-2" style="border-right: solid 3px; margin-top: 30px;font-size: 30px">
 	<ul class="nav flex-column  myselected">
+	  <li class="nav-item">
+	    <a class="nav-link active" href="/index" >首页</a>
+	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link active" href="#" onclick = "showWork('/admin/article')">文章管理</a>
 	  </li>

@@ -31,6 +31,7 @@ public class Article implements Serializable {
 	private Date updated;// 最后的修改时间
 	private int commentCnt;// 评论数量
 	private int articleType;// 文章的类型个文字0，图片1
+	private int complainCnt;// 投诉数量
 
 	private Channel channel;
 	private Category category;
@@ -41,6 +42,20 @@ public class Article implements Serializable {
 	 */
 	public Integer getId() {
 		return id;
+	}
+
+	/**
+	 * @return complainCnt get方法
+	 */
+	public int getComplainCnt() {
+		return complainCnt;
+	}
+
+	/**
+	 * @param complainCnt set方法
+	 */
+	public void setComplainCnt(int complainCnt) {
+		this.complainCnt = complainCnt;
 	}
 
 	/**
@@ -91,8 +106,6 @@ public class Article implements Serializable {
 	public void setIcture(String icture) {
 		this.icture = icture;
 	}
-
-	
 
 	/**
 	 * @return user_id get方法
@@ -340,7 +353,5 @@ public class Article implements Serializable {
 				+ created + ", updated=" + updated + ", commentCnt=" + commentCnt + ", articleType=" + articleType
 				+ ", channel=" + channel + ", category=" + category + ", user=" + user + "]";
 	}
-
-	
 
 }

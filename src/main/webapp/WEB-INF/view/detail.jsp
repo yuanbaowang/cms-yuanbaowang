@@ -42,6 +42,7 @@
 			发布时间：
 			<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd" />
 			</h5>
+			<a style = "color:red" href = "/article/complain?articleId=${article.id }">投诉</a>
 		</div>
 		<div style="margin-top: 30px">
 			<h3 style="color: red">文章内容：</h3>${article.content }	
@@ -50,12 +51,12 @@
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
+		      <a class="page-link" href="/article/detail?id=${id-1}&pageNum=${hotList.prePage==0?1:hotList.prePage }" target="blank_" aria-label="Previous">
 		        <span aria-hidden="true">上一篇</span>
 		      </a>
 		    </li>
 		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
+		      <a class="page-link" href="/article/detail?id=${id+1}&pageNum=${hotList.nextPage==0?hotList.pages:hotList.nextPage }" target="blank_" aria-label="Next">
 		        <span aria-hidden="true">下一篇</span>
 		      </a>
 		    </li>
@@ -83,7 +84,6 @@
 	function gopage(page){
 		showComment(page);
 	}
-
 
 	function showComment(page){
 		$("#comment").load("/article/comments?id=${id}&pageNum="+page);

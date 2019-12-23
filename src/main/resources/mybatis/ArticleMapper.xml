@@ -41,16 +41,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="list" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created,status,hot,picture
+		SELECT id,title,channel_id,category_id,user_id,created,status,hot,picture,complainCnt
 		From cms_article
-		WHERE status = 0
-		AND deleted = 0
+		WHERE <!-- status = 0
+		AND --> deleted = 0
+		<if test="id != null and id !=''">
+			AND status = #{id}
+		</if>
 		ORDER BY id DESC
 	</select>
 	
 		<!-- 获取最新文章 -->
 	<select id="lastList" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created,picture
+		SELECT id,title,channel_id,category_id,user_id,created,picture,complainCnt
 		From cms_article
 		WHERE status = 1
 		AND deleted = 0
@@ -61,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 获取热门文章 -->
 	<select id="hotList" resultMap="articleMapper">
-		SELECT id,title,channel_id,category_id,user_id,created,picture
+		SELECT id,title,channel_id,category_id,user_id,created,picture,complainCnt
 		From cms_article
 		WHERE status = 1
 		AND deleted = 0

@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +135,9 @@ public class UserController {
 	 * 	接收登录界面发送过来的请求
 	 */
 	@RequestMapping(value = "login",method = RequestMethod.POST)
-	public String login(HttpServletRequest request, User u) {
+	public String login(HttpServletRequest request,HttpServletResponse response, User u) {
+		//取明文密码
+		String pwd = u.getPassword();
 		User user = service.login(u);
 		//登录失败
 		if(user == null) {
@@ -142,6 +146,20 @@ public class UserController {
 		}
 		//登录成功 存到session中
 		request.getSession().setAttribute(CmsContant.USER_KEY, user);
+		
+		//将用户信息保存到cookie中
+		Cookie cookieUserName = new Cookie("username", u.getUsername());
+		cookieUserName.setPath("/");
+		//设置过期时间
+		cookieUserName.setMaxAge(10*24*3600);
+		Cookie cookieUserPwd = new Cookie("userpwd",pwd );
+		cookieUserPwd.setPath("/");
+		//设置过期时间
+		cookieUserPwd.setMaxAge(10*24*3600);
+		//返回到客户端
+		response.addCookie(cookieUserPwd);
+		response.addCookie(cookieUserName);
+		
 		//跳转管理员页面
 		if(user.getRole() == CmsContant.USER_ROLE_ADMIN) {
 			return "redirect:/admin/index";

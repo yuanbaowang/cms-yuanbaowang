@@ -49,7 +49,7 @@
 			<mvc:exclude-mapping path="/resource/**"/>
 			<mvc:exclude-mapping path="/jsp/**"/>
 			<mvc:exclude-mapping path="/channel"/>
-			<mvc:exclude-mapping path="/index/**"/>
+			<!-- <mvc:exclude-mapping path="/index/**"/> -->
 			<mvc:exclude-mapping path="/article/**"/>
 			
 			<mvc:exclude-mapping path="/file/**"/>

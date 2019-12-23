@@ -3,7 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-    
+<link rel = "stylesheet" href = "/bootstrap-4.3.1/css/bootstrap.css">
+<script type="text/javascript" src = "/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src = "/js/jquery.validate.js"></script>
+<script type="text/javascript" src = "/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src= "/bootstrap-4.3.1/js/bootstrap.js"></script>
+<script type="text/javascript" src = "/js/localization/messages_zh.js" ></script>
     
 <nav class="navbar navbar-expand-lg navbar-light bg-*" style="background-color: pink">
   <a class="navbar-brand" href="#">Navbar</a>
@@ -30,8 +35,8 @@
                       	  ${sessionScope.USER_KEY.username}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">注销</a>
-                        <a class="dropdown-item" href="#">进入个人中心</a>
+                        <a class="dropdown-item" href="/user/loginOut">注销</a>
+                        <a class="dropdown-item" href="/admin/index">进入个人中心</a>
                         <a class="dropdown-item" href="#">个人设置</a>
                     </div>
                     </c:if>

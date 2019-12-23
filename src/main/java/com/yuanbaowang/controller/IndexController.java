@@ -47,10 +47,6 @@ public class IndexController {
 			public void run() {
 				//获取热门文章
 				PageInfo<Article> hotList = service.hotList(pageNum);
-				List<Article> list = hotList.getList();
-				for (Article article : list) {
-					System.out.println(article);
-				}
 				request.getSession().setAttribute("hotList", hotList);
 			};
 		};

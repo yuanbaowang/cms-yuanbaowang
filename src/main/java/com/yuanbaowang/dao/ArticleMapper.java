@@ -5,6 +5,8 @@ package com.yuanbaowang.dao;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -14,6 +16,7 @@ import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
 import com.yuanbaowang.bean.Comment;
+import com.yuanbaowang.bean.Complain;
 import com.yuanbaowang.bean.Slide;
 
 /**
@@ -143,6 +146,19 @@ public interface ArticleMapper {
 	 */
 	@Select("SELECT * FROM cms_comment as c LEFT JOIN cms_user as u ON u.id = c.userId WHERE articleId = #{value}")
 	List<Comment> getComments(int id);
+
+
+	/**
+	 *	添加投诉信息
+	 */
+	@Insert("INSERT INTO cms_complain(article_id,user_id,complain_type,compain_option,src_url,picture,content,email,mobile,created) VALUES(#{articleId},#{userId},#{complainType},#{compainOption},#{srcUrl},#{picture},#{content},#{email},#{mobile},now())")
+	int addComplain(@Valid Complain complain);
+
+	/**
+	 *	修改文章表中的投诉量
+	 */
+	@Update("UPDATE cms_article SET complainCnt = complainCnt+1,status = if(complainCnt>10,2,status) WHERE id = #{value}")
+	void updArticleComplain(Integer articleId);
 
 
 	

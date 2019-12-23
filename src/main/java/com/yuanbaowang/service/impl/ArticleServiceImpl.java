@@ -5,6 +5,8 @@ package com.yuanbaowang.service.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
 import com.yuanbaowang.bean.Comment;
+import com.yuanbaowang.bean.Complain;
 import com.yuanbaowang.bean.Slide;
 import com.yuanbaowang.common.CmsContant;
 import com.yuanbaowang.dao.ArticleMapper;
@@ -193,11 +196,24 @@ public class ArticleServiceImpl implements ArticleService {
 		return i;
 	}
 
+	/**
+	 * 	根据文章id 获取所有的评论
+	 */
 	@Override
 	public PageInfo<Comment> getComments(int id, int pageNum) {
 		PageHelper.startPage(pageNum, CmsContant.PAGESIZE);
-		
 		return new PageInfo<Comment>(mapper.getComments(id));
+	}
+
+	@Override
+	public int addComplain(@Valid Complain complain) {
+		int result = mapper.addComplain(complain);
+		if(result > 0 ) {
+			//修改文章表中的投诉数量
+			System.out.println(complain.getArticleId());
+			mapper.updArticleComplain(complain.getArticleId());
+		}
+		return result;
 	}
 	
 }
