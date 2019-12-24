@@ -36,7 +36,14 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/user/loginOut">注销</a>
-                        <a class="dropdown-item" href="/admin/index">进入个人中心</a>
+                         <c:if test="${sessionScope.USER_KEY.role == 1}">
+                       	 	<a class="dropdown-item" href="/admin/index">进入个人中心</a>
+                        </c:if>
+                        <c:if test="${sessionScope.USER_KEY.role == 0}">
+                       	 	<a class="dropdown-item" href="/user/list">进入个人中心</a>
+                        </c:if>
+                        
+                        
                         <a class="dropdown-item" href="#">个人设置</a>
                     </div>
                     </c:if>

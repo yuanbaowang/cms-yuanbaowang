@@ -64,12 +64,12 @@ public class UserController {
 
 	
 	/**
-	 * 	跳转到注册页面
+	 * 	跳转到普通用户页面
 	 */
 	@RequestMapping(value = "list",method = RequestMethod.GET)
 	public String list(Model m) {
 		m.addAttribute("u",new User());
-		return "user/register";
+		return "user/list";
 	}
 	
 	

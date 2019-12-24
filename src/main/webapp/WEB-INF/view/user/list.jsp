@@ -53,7 +53,7 @@
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">注销</a>
+          <a class="dropdown-item" href="/user/loginOut">注销</a>
           <a class="dropdown-item" href="#"></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
@@ -76,7 +76,7 @@
                       	  个人中心
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
+                         <a class="dropdown-item" href="/user/loginOut">注销</a>
                         <a class="dropdown-item" href="#">Another Action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
