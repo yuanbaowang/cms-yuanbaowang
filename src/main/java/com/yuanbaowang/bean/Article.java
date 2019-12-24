@@ -25,7 +25,7 @@ public class Article implements Serializable {
 	private int user_id;
 	private int hits;// 点击次数
 	private int hot;// 是否热门
-	private int status;// 文章状态 0待审核，1审核通过，2拒绝
+	private Integer status;// 文章状态 0待审核，1审核通过，2拒绝
 	private int deleted;// 是否被删除
 	private Date created;// 创建时间
 	private Date updated;// 最后的修改时间
@@ -152,14 +152,14 @@ public class Article implements Serializable {
 	/**
 	 * @return status get方法
 	 */
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status set方法
 	 */
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

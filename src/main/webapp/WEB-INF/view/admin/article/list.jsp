@@ -5,9 +5,10 @@
 
 
 状态查询：	<select id = "sta">
-			<option value = "0">待审核</option>
-			<option value = "1">审核通过</option>
-			<option value = "2">拒绝</option>
+			<option value = "">全部</option>
+			<option value = "0" <c:if test="${status==0}">selected</c:if>>待审核</option>
+			<option value = "1" <c:if test="${status==1}">selected</c:if>>审核通过</option>
+			<option value = "2" <c:if test="${status==2}">selected</c:if>>拒绝</option>
 		</select>
 		<button onclick = "sub()">查询</button>
 
@@ -48,6 +49,7 @@
 	    <td>
 	    	<input type="button" class = "btn btn-danger" value = "删除" onclick ="del(${article.id })">
 	    	<input type="button" class = "btn btn-warning" value = "审核" onclick ="check(${article.id })">
+	    	<input type="button" class = "btn btn-warning" value = "管理投诉" onclick ="admin(${article.id })" style="margin-left: 15px;">
 	    	</td>
   </tr>
   </c:forEach>
@@ -98,6 +100,35 @@
   </div>
 </div>
 
+
+<!-- 模态框进行管理投诉 -->
+<div class="modal fade" id="articleComplain" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 1200px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">管理投诉</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	<div class = "row"  id = "comTitle"></div>
+        	<div class = "row" id = "comOption"></div>
+        	<div class = "row" id = "comContent"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick = "setStatus(1)">查看投诉</button>
+        <button type="button" class="btn btn-primary" onclick = "setStatus(2)">下架文章</button>
+        <button type="button" class="btn btn-primary" onclick = "setHot(1)">清空投诉</button>
+        <button type="button" class="btn btn-primary" onclick = "setHot(0)">联系作者</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <script type="text/javascript">
 	//全局变量
 	var article_id;
@@ -106,6 +137,33 @@
 	$('#articleContent').on('hidden.bs.modal', function (e) {
 		refreshPage();
 	})
+	
+	$('#articleComplain').on('hidden.bs.modal', function (e) {
+		refreshPage();
+	})
+	
+	//管理投诉
+	function admin(id){
+		$.ajax({
+			url:'/article/getDetail',
+			type:'post',
+			data:{id:id},
+			dataType:'json',
+			success:function(msg){
+			if(msg.code == 1){
+				$("#comTitle").html("标题："+msg.date.title+" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  投诉量："+msg.date.complainCnt);
+				$("#comOption").html("栏目："+'msg.date.channel.name'+"   分类："+'msg.date.category.name'+"   作者："+'msg.date.user.username');
+				
+				$("#comContent").html(msg.date.content);
+				$('#articleComplain').modal('show');
+				//把文章的id 保存到全局变量中
+				article_id = msg.date.id;
+				return;
+			}
+			alert(msg.error);
+			}
+		});
+	}
 	
 	function del(id){
 		if(confirm("确认删除该数据吗？")){
@@ -145,10 +203,10 @@
 			data:{id:id},
 			dataType:'json',
 			success:function(msg){
-				alert(JSON.stringify(msg));
+				//alert(JSON.stringify(msg));
 				if(msg.code == 1){
 					
-					$("#divTitle").html(msg.date.title);
+					$("#divTitle").html("标题："+msg.date.title);
 					$("#divOption").html("栏目："+'msg.date.channel.name'+"   分类："+'msg.date.category.name'+"   作者："+'msg.date.user.username');
 					
 					$("#divContent").html(msg.date.content);
@@ -213,7 +271,6 @@
 	function sub(){
 		var status = $("#sta").val();
 		$("#workcontent").load("/admin/article?status="+status);
-		
 	}
 	
 	

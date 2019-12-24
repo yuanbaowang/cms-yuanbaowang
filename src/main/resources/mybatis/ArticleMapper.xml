@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		From cms_article
 		WHERE <!-- status = 0
 		AND --> deleted = 0
-		<if test="id != null and id !=''">
+		<if test="id !=-1 ">
 			AND status = #{id}
 		</if>
 		ORDER BY id DESC

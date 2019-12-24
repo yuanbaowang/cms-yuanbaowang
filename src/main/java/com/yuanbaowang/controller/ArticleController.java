@@ -144,7 +144,6 @@ public class ArticleController extends BaseController{
 		complain.setPicture(processFile);
 		//没有错误就添加
 		int i = service.addComplain(complain);
-		
 		return "redirect:detail?id="+complain.getArticleId();
 	}
 	

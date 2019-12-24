@@ -51,7 +51,6 @@
 			<mvc:exclude-mapping path="/channel"/>
 			<!-- <mvc:exclude-mapping path="/index/**"/> -->
 			<mvc:exclude-mapping path="/article/**"/>
-			
 			<mvc:exclude-mapping path="/file/**"/>
 			<mvc:exclude-mapping path="/bootstrap-4.3.1/**"/>
 			<bean class="com.yuanbaowang.web.CmsInterceptor"></bean>
