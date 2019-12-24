@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel = "stylesheet" href = "/bootstrap-4.3.1/css/bootstrap.css">
 <script type="text/javascript" src = "/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src = "/js/jquery.validate.js"></script>
+<!-- <script type="text/javascript" src = "/js/jquery.validate.js"></script> -->
 <script type="text/javascript" src = "/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src= "/bootstrap-4.3.1/js/bootstrap.js"></script>
 <script type="text/javascript" src = "/js/localization/messages_zh.js" ></script>
@@ -53,8 +53,8 @@
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">注销</a>
+          <a class="dropdown-item" href="#"></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
@@ -87,10 +87,13 @@
 </nav>
 
 <!-- 中间布局 -->
-<div class = "container row" style="height: 800px">
+<div class = "container row  col-md-10" style="height: 800px">
 	<!-- 最左侧导航栏 -->
 	<div class = "col-md-2" style="border-right: solid 3px; margin-top: 30px;font-size: 30px">
 	<ul class="nav flex-column  myselected">
+	 <li class="nav-item">
+	    <a class="nav-link active" href="/index" >首页</a>
+	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link active" href="#" onclick = "showWork('/user/articles')">我的文章</a>
 	  </li>

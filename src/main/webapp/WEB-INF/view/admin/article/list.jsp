@@ -185,15 +185,15 @@
 	}
 	
 	function gopage(page){
-		$("#workcontent").load("/admin/article?status=0&pageNum="+page);
+		$("#workcontent").load("/admin/article?status=${status}&pageNum="+page);
 	}
 	
 	function fristpage(){
-		$("#workcontent").load("/admin/article?status=0&pageNum=1");
+		$("#workcontent").load("/admin/article?status=${status}&pageNum=1");
 	}
 	
 	function lastpage(page){
-		$("#workcontent").load("/admin/article?status=0&pageNum="+page);
+		$("#workcontent").load("/admin/article?status=${status}&pageNum="+page);
 	}
 	
 	function check(id){

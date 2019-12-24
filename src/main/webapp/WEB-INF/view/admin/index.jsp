@@ -87,9 +87,8 @@
   </div>
 </nav>
 
-
 <!-- 中间布局 -->
-<div class = "container row" style="height: 800px">
+<div class = "container row col-md-10" style="height: 600px;">
 	<!-- 最左侧导航栏 -->
 	<div class = "col-md-2" style="border-right: solid 3px; margin-top: 30px;font-size: 30px">
 	<ul class="nav flex-column  myselected">
@@ -112,10 +111,8 @@
 	</div>
 
 	<!-- 中间的显示区 -->
-	<div class = "col-md-10" id = "workcontent" style="margin-top: 30px;font-size: 20px;height: 800px">
-		
-	</div>
-		
+
+		<div class = "col-md-10" id = "workcontent" style="margin-top: 30px; font-size: 20px;height: 800px"></div>
 </div>
 
 <!-- 尾部导航栏 -->
