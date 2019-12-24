@@ -58,7 +58,6 @@ public class ArticleController extends BaseController{
 		return new CmsMessage(CmsError.SUCCESS,"",article);
 	}
 	
-	
 	/**
 	 *	点击	根据id 查看文章
 	 */

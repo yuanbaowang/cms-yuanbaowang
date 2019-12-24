@@ -31,7 +31,6 @@ public class AdminController {
 	@Autowired
 	private ArticleService service;
 	
-	
 	@RequestMapping("index")
 	public String index() {
 		return "admin/index";
@@ -98,8 +97,5 @@ public class AdminController {
 		return new CmsMessage(CmsError.UPDATE_FALSE,"设置失败！",null);
 		
 	}
-	
-	
-	
 	
 }
