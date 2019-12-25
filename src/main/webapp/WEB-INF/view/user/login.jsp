@@ -35,6 +35,12 @@
                        <%--  <f:password class ="form-control" path="password" placeholder ="请输入密码"   cssStyle="margin-right: 63px"/> --%>
 						 <input type ="password" class ="form-control" style="margin-left: -85px" name ="password" placeholder ="请输入密码">
                     </div>
+					<!-- 复选框 -->
+					 <div class="form-group form-check">
+					    <input type="checkbox" class="form-check-input" value = "1" name = "mdl">
+					    <label class="form-check-label" for="exampleCheck1">免登录</label>
+					 </div>
+
                     <br>
                     <div class ="input-group input-group-lg" style ="margin:0 auto; width:100%;">
                          <button type ="submit" class ="buttonlarg btn btn-primary btn-lg" style ="width:100%;">登录</button>

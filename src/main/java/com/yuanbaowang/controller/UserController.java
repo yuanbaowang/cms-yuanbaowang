@@ -146,19 +146,21 @@ public class UserController {
 		}
 		//登录成功 存到session中
 		request.getSession().setAttribute(CmsContant.USER_KEY, user);
-		
-		//将用户信息保存到cookie中
-		Cookie cookieUserName = new Cookie("username", u.getUsername());
-		cookieUserName.setPath("/");
-		//设置过期时间
-		cookieUserName.setMaxAge(10*24*3600);
-		Cookie cookieUserPwd = new Cookie("userpwd",pwd );
-		cookieUserPwd.setPath("/");
-		//设置过期时间
-		cookieUserPwd.setMaxAge(10*24*3600);
-		//返回到客户端
-		response.addCookie(cookieUserPwd);
-		response.addCookie(cookieUserName);
+	
+		if(u.getMdl() == 1) {
+			//将用户信息保存到cookie中
+			Cookie cookieUserName = new Cookie("username", u.getUsername());
+			cookieUserName.setPath("/");
+			//设置过期时间
+			cookieUserName.setMaxAge(10*24*3600);
+			Cookie cookieUserPwd = new Cookie("userpwd",pwd );
+			cookieUserPwd.setPath("/");
+			//设置过期时间
+			cookieUserPwd.setMaxAge(10*24*3600);
+			//返回到客户端
+			response.addCookie(cookieUserPwd);
+			response.addCookie(cookieUserName);
+		}
 		
 		//跳转管理员页面
 		if(user.getRole() == CmsContant.USER_ROLE_ADMIN) {
