@@ -6,18 +6,27 @@ package com.yuanbaowang.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 /**
  * @author 袁保旺
  *
  *         2019年12月12日 下午7:39:04 文章实体类
  */
+@Document(indexName = "cms_article", type = "article")
 public class Article implements Serializable {
 
 	private static final long serialVersionUID = 1921362106209183884L;
 
+	@Id
 	private Integer id;// 编号
+	@Field(analyzer = "ik_smart", index = true, store = true, searchAnalyzer = "ik_smart", type = FieldType.text)
 	private String title;// 标题
 	private String picture;// 图片
+	@Field(analyzer = "ik_smart", index = true, store = true, searchAnalyzer = "ik_smart", type = FieldType.text)
 	private String content;// 内容
 	private String icture;// 栏目频道
 	private int channelId;// 分类
@@ -32,7 +41,7 @@ public class Article implements Serializable {
 	private int commentCnt;// 评论数量
 	private int articleType;// 文章的类型个文字0，图片1
 	private int complainCnt;// 投诉数量
-
+	
 	private Channel channel;
 	private Category category;
 	private User user;
@@ -345,13 +354,16 @@ public class Article implements Serializable {
 		this.categoryId = categoryId;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", picture=" + picture + ", content=" + content + ", icture="
 				+ icture + ", channelId=" + channelId + ", categoryId=" + categoryId + ", user_id=" + user_id
 				+ ", hits=" + hits + ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created="
 				+ created + ", updated=" + updated + ", commentCnt=" + commentCnt + ", articleType=" + articleType
-				+ ", channel=" + channel + ", category=" + category + ", user=" + user + "]";
+				+ ", complainCnt=" + complainCnt + ", channel=" + channel + ", category="
+				+ category + ", user=" + user + "]";
 	}
 
 }

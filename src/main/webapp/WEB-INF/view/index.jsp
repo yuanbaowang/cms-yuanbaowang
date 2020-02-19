@@ -50,7 +50,59 @@
 </head>
 <body>
 <!-- 导航条 -->
-<jsp:include page="common/hander.jsp"></jsp:include>
+<%-- <jsp:include page="common/hander.jsp"></jsp:include> --%>
+<nav class="navbar navbar-expand-lg navbar-light bg-*" style="background-color: pink">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">Features</a>
+      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </div>
+  </div>
+  <form class="form-inline my-2 my-lg-0" style="margin-right: 50%" action="index" method="post">
+      <input class="form-control mr-sm-2" type="search" name = "title" value = "${title }" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <div>
+    	<ul class="navbar-nav mr-auto  myselected">
+    		<li class="nav-item dropdown" >
+    		  <c:if test="${sessionScope.USER_KEY != null}">
+    			 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 15px">
+                      	  ${sessionScope.USER_KEY.username}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/user/loginOut">注销</a>
+                         <c:if test="${sessionScope.USER_KEY.role == 1}">
+                       	 	<a class="dropdown-item" href="/admin/index">进入个人中心</a>
+                        </c:if>
+                        <c:if test="${sessionScope.USER_KEY.role == 0}">
+                       	 	<a class="dropdown-item" href="/user/list">进入个人中心</a>
+                        </c:if>
+                        
+                        
+                        <a class="dropdown-item" href="#">个人设置</a>
+                    </div>
+                    </c:if>
+                    
+                    <c:if test="${sessionScope.USER_KEY == null}">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      	 登录方式
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/user/login">登录</a>
+                        <a class="dropdown-item" href="/user/register">注册</a>
+                    </div>
+                    </c:if>
+    		</li>
+    	</ul>
+    </div>
+</nav>
+
 
 <div class="container-fluid">
 
@@ -117,6 +169,7 @@
 				</div>
 				<div class = "col-md-9" style="margin-top: 20px">
 					<a href = "/article/detail?id=${hot.id }" target="-blank">${hot.title }</a>
+					<input type="button" class = "btn btn-danger" value = "收藏" onclick ="sc(${hot.id })">
 					<br>
 					作者：${hot.user.username }
 					<br>
@@ -133,24 +186,25 @@
 		  <ul class="pagination">
 		    <li class="page-item">
 		    
-		      <a class="page-link" href="/index?pageNum=${hotList.prePage == 0?1:hotList.prePage}" aria-label="Previous">
+		      <a class="page-link" href="/index?pageNum=${hotList.prePage == 0?1:hotList.prePage}&title=${title}" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
 		    <c:forEach begin="1" end="${hotList.pages }" varStatus="count">
-		    	 <li class="page-item ${hotList.pageNum == count.count?'active':'' }"><a class="page-link" href="/index?pageNum=${count.count }">${count.count }</a></li>
+		    	 <li class="page-item ${hotList.pageNum == count.count?'active':'' }"><a class="page-link" href="/index?pageNum=${count.count }&title=${title}">${count.count }</a></li>
 		    </c:forEach>
 		   
 		    
 		    <li class="page-item">
 		    
-		      <a class="page-link" href="/index?pageNum=${hotList.nextPage == 0?hotList.pages:hotList.nextPage}" aria-label="Next">
+		    
+		      <a class="page-link" href="/index?pageNum=${hotList.nextPage == 0?hotList.pages:hotList.nextPage}&title=${title}" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		      
 		    </li>
 		  </ul>
-		</nav>
+		</nav>·
 	</div>
 </div>
 <!-- 右侧栏目 -->
@@ -185,9 +239,30 @@
 </div>
 <jsp:include page="common/footer.jsp"></jsp:include>
 </body>
+
 <script type="text/javascript">
-	$(document).ready(function(){
-		//alert('${hotList.list }');
-	});
+$(document).ready(function(){
+	alert("查询成功，共耗时"+${hs});
+
+});
+
+function sc(id){
+	if(confirm("确认将该文章添加到我的收藏中？")){
+		$.ajax({
+			url:'/article/addCollect',
+			type:'post',
+			data:{id:id},
+			dataType:'json',
+			success:function(msg){
+				if(msg.code == 1){
+					alert(msg.error);
+					return;
+				}
+				alert(msg.error);
+				}
+		});
+	}
+	
+}
 </script>
 </html>

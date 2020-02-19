@@ -63,7 +63,7 @@
       <a class="page-link" href="#" onclick = "fristpage()">Previous</a>
     </li>
     	<c:forEach begin="1" end="${list.pages}" varStatus="i">
-    		<li class="page-item"><a class="page-link" onclick="gopage(${i.index })" href="#">${i.index }</a></li>
+    		<li class="page-item ${list.pageNum == i.index?'active':'' }"><a class="page-link" onclick="gopage(${i.index })" href="#">${i.index }</a></li>
     	</c:forEach>
     
     <li class="page-item">

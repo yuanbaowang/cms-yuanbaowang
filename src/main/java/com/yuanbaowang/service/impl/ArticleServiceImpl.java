@@ -145,9 +145,9 @@ public class ArticleServiceImpl implements ArticleService {
 	 * 	获取所有热门文章
 	 */
 	@Override
-	public PageInfo<Article> hotList(int pageNum) {
+	public PageInfo<Article> hotList(int pageNum,String title) {
 		PageHelper.startPage(pageNum,CmsContant.PAGESIZE);
-		return new PageInfo<Article>(mapper.hotList(pageNum));
+		return new PageInfo<Article>(mapper.hotList(pageNum,title));
 	}
 
 	/**
@@ -214,6 +214,14 @@ public class ArticleServiceImpl implements ArticleService {
 			mapper.updArticleComplain(complain.getArticleId());
 		}
 		return result;
+	}
+
+	/**
+	 * 	查询所有没有通过的文件
+	 */
+	@Override
+	public List<Article> getArticleNo() {
+		return mapper.getArticleNo();
 	}
 	
 }

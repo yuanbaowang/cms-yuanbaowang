@@ -22,17 +22,17 @@ import yuanbaowang_cms_utils.FileUtils;
 public class BaseController {
 	
 	@Value("${upload.path}")
-	String picRootPath;
+	static String picRootPath;
 	
 	@Value("${pic.path}")
-	String picUrl;
+	static String picUrl;
 	
 	/**
 	 * 	进行处理上传文件
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
-	protected String processFile(MultipartFile file) throws IllegalStateException, IOException {
+	protected static String processFile(MultipartFile file) throws IllegalStateException, IOException {
 		
 		if(file.isEmpty()) {
 			return "";

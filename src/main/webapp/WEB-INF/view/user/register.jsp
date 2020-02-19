@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>注册</title>
 <link rel = "stylesheet" href = "/bootstrap-4.3.1/css/bootstrap.css">
 <script type="text/javascript" src = "/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src = "/js/jquery.validate.js"></script>

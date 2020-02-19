@@ -89,7 +89,7 @@ public interface ArticleService {
 	/**
 	 *	获取热门文章
 	 */
-	PageInfo<Article> hotList(int pageNum);
+	PageInfo<Article> hotList(int pageNum,String title);
 
 	/**
 	 *	获取最后发布的文章
@@ -125,6 +125,11 @@ public interface ArticleService {
 	 *	添加投诉
 	 */
 	int addComplain(@Valid Complain complain);
+
+	/**
+	 *	查询所有没有审核通过的文件
+	 */
+	List<Article> getArticleNo();
 
 
 

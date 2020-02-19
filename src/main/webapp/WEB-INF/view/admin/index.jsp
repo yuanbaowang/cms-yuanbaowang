@@ -64,8 +64,8 @@
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" style="margin-right: 50px">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="form-inline my-2 my-lg-0" style="margin-right: 50px" action = "" method="post">
+      <input class="form-control mr-sm-2" type="search" placeholder="请输入标题信息" name = "title" value = "${title }" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 <!--     设置头像 个人信息 等导航格 -->
@@ -100,6 +100,10 @@
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="#" onclick = "showWork('/admin/comment')">评论管理</a>
+	  </li>
+	  
+	  <li class="nav-item">
+   	 <a class="nav-link" href="#" onclick = "showWork('/admin/collect')">我的收藏</a>
 	  </li>
 	  <li class="nav-item">
    	 <a class="nav-link" href="#">友情链接</a>

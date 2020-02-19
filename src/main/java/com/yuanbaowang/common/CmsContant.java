@@ -21,7 +21,7 @@ public class CmsContant {
 	public static final int USER_ROLE_ADMIN = 1;
 	
 	//分页常量
-	public static final int PAGESIZE = 5;
+	public static final int PAGESIZE = 4;
 	
 	//删除状态
 	public static final int ARTICLE_STATUS_DEL = 1;

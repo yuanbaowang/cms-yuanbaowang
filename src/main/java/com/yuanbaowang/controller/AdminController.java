@@ -3,21 +3,25 @@
  */
 package com.yuanbaowang.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.yuanbaowang.bean.Article;
+import com.yuanbaowang.bean.Collect;
+import com.yuanbaowang.bean.User;
+import com.yuanbaowang.common.CmsContant;
 import com.yuanbaowang.common.CmsError;
 import com.yuanbaowang.common.CmsMessage;
 import com.yuanbaowang.service.ArticleService;
+import com.yuanbaowang.service.CollectService;
 
 /**
  * @author 袁保旺
@@ -27,9 +31,15 @@ import com.yuanbaowang.service.ArticleService;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+	
+	@Autowired
+	CollectService collectService;
 
 	@Autowired
 	private ArticleService service;
+	
+	@Autowired
+	KafkaTemplate<String, String> kafkaTemplate;
 	
 	@RequestMapping("index")
 	public String index() {
@@ -46,6 +56,35 @@ public class AdminController {
 		request.getSession().setAttribute("status", status);
 		return "admin/article/list";
 	}
+	
+	/**
+	 * 	查询
+	 */
+	@RequestMapping("collect")
+	public String collect(HttpServletRequest request,@RequestParam(defaultValue = "1") Integer pageNum) {
+		//获取当前登录用户
+		User user = (User) request.getSession().getAttribute(CmsContant.USER_KEY);
+//		if(user == null) {
+//			return new CmsMessage(CmsContant.NOT_LOGIN,"您尚未登录，不可添加至收藏夹",null);
+//		}
+		
+		PageInfo<Collect> selCollect = collectService.selCollect(user.getId(), pageNum);
+		 request.getSession().setAttribute("list", selCollect);
+		return "admin/article/collect";
+	}
+	
+	/**
+	 * 	删除
+	 */
+	@RequestMapping("delCollect")
+	@ResponseBody
+	public int delCollect(HttpServletRequest request, Integer id) {
+		//获取当前登录用户
+		User user = (User) request.getSession().getAttribute(CmsContant.USER_KEY);
+		int i = collectService.delCollect(user.getId(),id);
+		return i;
+	}
+	
 	
 	/**
 	 * 	设置状态
@@ -91,6 +130,11 @@ public class AdminController {
 		}
 		//设置热门
 		int result = service.setStatus(id,status);
+		
+		String jsonString = JSON.toJSONString(service.getSimpleById(id));
+		//kafka生产者 发送对象到消费者
+		kafkaTemplate.send("article","add="+jsonString);
+		
 		if(result !=0) {
 			return new CmsMessage(CmsError.UPDATE_SUCCESS,"",null);
 		}

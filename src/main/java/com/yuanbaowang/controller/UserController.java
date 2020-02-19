@@ -13,10 +13,13 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.SysexMessage;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,14 +30,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.yuanbaowang.bean.Article;
 import com.yuanbaowang.bean.Category;
 import com.yuanbaowang.bean.Channel;
 import com.yuanbaowang.bean.User;
 import com.yuanbaowang.common.CmsContant;
+import com.yuanbaowang.dao.ArticleRe;
 import com.yuanbaowang.service.ArticleService;
 import com.yuanbaowang.service.UserService;
+import com.yuanbaowang.service.impl.RedisArticleService;
 
 import yuanbaowang_cms_utils.FileUtils;
 import yuanbaowang_cms_utils.StringUtils;
@@ -59,9 +65,24 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	//注入新bean
+	@Autowired
+	RedisArticleService redisService;
+	
+	//es注入
+	@Autowired
+	ArticleRe articleRe;
+	
 	@Autowired
 	private ArticleService aService;
 
+	//注入kfuk
+	@Autowired
+	KafkaTemplate<String, String> kafkaTemplate;
+	
+	//注入redis
+	@Autowired
+	RedisTemplate<String, String>  redisTem;
 	
 	/**
 	 * 	跳转到普通用户页面
@@ -131,6 +152,11 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@RequestMapping(value = "/")
+	public String loginTo(Model m) {
+		return "user/login";
+	}
+	
 	/**
 	 * 	接收登录界面发送过来的请求
 	 */
@@ -147,21 +173,20 @@ public class UserController {
 		//登录成功 存到session中
 		request.getSession().setAttribute(CmsContant.USER_KEY, user);
 	
-		if(u.getMdl() == 1) {
 			//将用户信息保存到cookie中
 			Cookie cookieUserName = new Cookie("username", u.getUsername());
+			//设置根路径
 			cookieUserName.setPath("/");
 			//设置过期时间
 			cookieUserName.setMaxAge(10*24*3600);
 			Cookie cookieUserPwd = new Cookie("userpwd",pwd );
+			//设置根路径
 			cookieUserPwd.setPath("/");
 			//设置过期时间
 			cookieUserPwd.setMaxAge(10*24*3600);
 			//返回到客户端
 			response.addCookie(cookieUserPwd);
 			response.addCookie(cookieUserName);
-		}
-		
 		//跳转管理员页面
 		if(user.getRole() == CmsContant.USER_ROLE_ADMIN) {
 			return "redirect:/admin/index";
@@ -199,6 +224,8 @@ public class UserController {
 	@ResponseBody
 	public boolean delArticle(int id) {
 		int i = aService.delArticle(id);
+		//使用卡夫卡发送消息 在es数据库中删除消息
+		kafkaTemplate.send("article","del="+id);
 		return i > 0;
 	}
 	
@@ -237,7 +264,6 @@ public class UserController {
 		try {
 			picUrl = processFile(file);
 			article.setPicture(picUrl);
-			
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -246,10 +272,20 @@ public class UserController {
 			e.printStackTrace();
 		}
 		//获取登录人的user_id
-	
 		User user = (User) request.getSession().getAttribute(CmsContant.USER_KEY);
 		article.setUser_id(user.getId());
-		int i =  aService.add(article); 
+		
+		System.err.println(article);
+		
+		int i = redisService.save(article);
+		
+		System.err.println(i);
+		
+		//int i =  aService.add(article); 
+		
+		//kafka发送消息
+		String jsonString = JSON.toJSONString(article);
+		kafkaTemplate.send("article","add="+jsonString);
 		return i > 0 ;
 	}
 	
@@ -263,7 +299,6 @@ public class UserController {
 		if(file.isEmpty()) {
 			return "";
 		}
-		
 		//获取当前日期
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String subPath = sdf.format(new Date());

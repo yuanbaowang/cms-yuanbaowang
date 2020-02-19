@@ -41,7 +41,9 @@
 			分类：${article.category.name }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			发布时间：
 			<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd" />
+				点击量：${article.hits }&nbsp;&nbsp;
 			</h5>
+		
 			<a style = "color:red" href = "/article/complain?articleId=${article.id }">投诉</a>
 		</div>
 		<div style="margin-top: 30px">

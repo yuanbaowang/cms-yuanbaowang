@@ -6,10 +6,11 @@ package com.yuanbaowang.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.Size;
 
 import org.apache.ibatis.javassist.SerialVersionUID;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author 袁保旺

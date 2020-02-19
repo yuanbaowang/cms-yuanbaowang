@@ -56,7 +56,7 @@ public interface ArticleMapper {
 	/**
 	 *	发布文章，向数据库中添加文章
 	 */
-	@Insert("insert cms_article set title = #{a.title},content = #{a.content},picture = #{a.picture},channel_id = #{a.channelId},category_id = #{a.categoryId},user_id = #{a.user_id},hits = 0,hot = 0,status = 1,deleted = 0,created = now(),commentCnt = 0,articleType = #{a.articleType}")
+	@Insert("insert cms_article set title = #{a.title},content = #{a.content},picture = #{a.picture},channel_id = #{a.channelId},category_id = #{a.categoryId},user_id = #{a.user_id},hits = 0,hot = 0,status = 0,deleted = 0,created = now(),commentCnt = 0,articleType = #{a.articleType},complainCnt = 0")
 	int add(@Param("a")Article article);
 
 
@@ -82,7 +82,7 @@ public interface ArticleMapper {
 	/**
 	 *	获取简单的文章信息
 	 */
-	@Select("SELECT id,title,channel_id,category_id,status,hot FROM cms_article WHERE id = #{id}")
+	@Select("SELECT * FROM cms_article WHERE id = #{id}")
 	Article getSimpleById(@Param("id")int id);
 
 
@@ -103,7 +103,7 @@ public interface ArticleMapper {
 	/**
 	 *	获取所有热门文章
 	 */
-	List<Article> hotList(int pageNum);
+	List<Article> hotList(int pageNum,String title);
 
 
 
@@ -159,6 +159,21 @@ public interface ArticleMapper {
 	 */
 	@Update("UPDATE cms_article SET complainCnt = complainCnt+1,status = if(complainCnt>10,2,status) WHERE id = #{value}")
 	void updArticleComplain(Integer articleId);
+
+
+	/**
+	 *	查询没有通过的文章
+	 */
+	@Select("SELECT * FROM cms_article WHERE status = 1 AND hot = 1")
+	List<Article> getArticleNo();
+
+
+	/**
+	 * @param hits 
+	 *
+	 */
+	@Update("UPDATE cms_article set hits = #{hits} where id = #{id} ")
+	int updHits(@Param("id")Integer valueOf, @Param("hits")Integer hits);
 
 
 	
